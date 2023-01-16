@@ -9,11 +9,11 @@ from tkinter import ttk
 
 
 def getCreateErrorMessage():
-    if not telegraph_instance.isTokenCreated() and not telegraph_instance.isDirChoosen():
+    if not telegraph_instance.isTokenCreated() and not telegraph_instance.isDirChosen():
         return "Вы не указали токен и папку!"
     elif not telegraph_instance.isTokenCreated():
         return "Вы не указали токен"
-    elif not telegraph_instance.isDirChoosen():
+    elif not telegraph_instance.isDirChosen():
         return "Вы не указали папку"
     else:
         return False
