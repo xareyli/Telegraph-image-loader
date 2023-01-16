@@ -36,9 +36,16 @@ class Telegraph:
     def isTokenCreated(self):
         return self._tokenCreated
 
+    def isDirChosen(self):
+        return bool(self.imgDir)
+
     def createPage(self):
         if not self.telegraph:
-            self.telegraph = TelegraphAPI(access_token=self.access_token)
+            try:
+                self.telegraph = TelegraphAPI(access_token=self.access_token)
+                self.telegraph.get_account_info() # check token validity
+            except:
+                return False
 
         html_content = ""
 
@@ -69,10 +76,13 @@ class Telegraph:
                 except:
                     print("{} skipped".format(entry.name))
 
-        response = self.telegraph.create_page(
-            'Hey',
-            html_content=html_content,
-        )
+        try:
+            response = self.telegraph.create_page(
+                'Hey',
+                html_content=html_content,
+            )
+        except:
+            return False
 
         return 'http://telegra.ph/{}'.format(response['path'])
 

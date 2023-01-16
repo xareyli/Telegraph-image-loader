@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from API.Telegraph import telegraph_instance
 
+from tkinter.messagebox import showwarning
 from mainWindow.mainHandlers import MainWindowHandlers
 
 
@@ -17,6 +18,12 @@ class MainWindow(Window):
 
     def _genTokenHandler(self):
         MainWindowHandlers.genToken(lambda token: self.tokenInputSV.set(token))
+
+    def _doneHandler(self):
+        isSuccess = MainWindowHandlers.done()
+
+        if not isSuccess:
+            showwarning(message="Неверный токен")
 
     def _chooseDirHandler(self):
         dirPath = MainWindowHandlers.chooseDir()
@@ -34,7 +41,7 @@ class MainWindow(Window):
 
     def createButtons(self):
         ttk.Button(self.frame, text="Создать токен", command=self._genTokenHandler).grid(column=0, row=1)
-        ttk.Button(self.frame, text="Загрузить", command=MainWindowHandlers.done).grid(column=0, row=2)
+        ttk.Button(self.frame, text="Загрузить", command=self._doneHandler).grid(column=0, row=2)
         ttk.Button(self.frame, text="Выбрать папку", command=self._chooseDirHandler).grid(column=0, row=3)
 
     def createInputs(self):
