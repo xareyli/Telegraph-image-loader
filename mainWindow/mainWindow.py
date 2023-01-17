@@ -28,7 +28,10 @@ class MainWindow(Window):
     def _chooseDirHandler(self):
         dirPath = MainWindowHandlers.chooseDir()
 
-        self.dirLabel.config(text=dirPath)
+        if dirPath:
+            self.dirLabel.config(text=dirPath)
+        else:
+            self.dirLabel.config(text="Папка не выбрана")
 
     def _handleWriteToken(self):
         MainWindowHandlers.handleWriteToken(self.tokenInputSV.get())

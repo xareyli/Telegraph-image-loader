@@ -43,7 +43,7 @@ class Telegraph:
         if not self.telegraph:
             try:
                 self.telegraph = TelegraphAPI(access_token=self.access_token)
-                self.telegraph.get_account_info() # check token validity
+                self.telegraph.get_account_info()  # check token validity
             except:
                 return False
 
